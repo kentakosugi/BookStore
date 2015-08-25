@@ -101,5 +101,6 @@ public class ContentBean implements Serializable{
 	public void reset(){
 		this.books = null;
 		this.book = null;
+		System.gc();
 	}
 }
