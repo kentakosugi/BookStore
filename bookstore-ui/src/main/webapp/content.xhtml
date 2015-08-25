@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title></title>
+</h:head>
+<h:body>
+	<ui:composition>
+		<h:form id="form">
+			<div style="text-align: center">
+				<p:inputText size="50" value="#{contentBean.title}" />
+				<p:commandButton ajax="false" value="検索"
+					action="#{contentBean.search()}" />
+			</div>
+
+			<p:dataGrid var="book" value="#{contentBean.books}" columns="3"
+				layout="grid" rows="12" paginator="true" id="books"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="3,6,9" rendered="#{not empty contentBean.books}">
+
+				<f:facet name="header">検索結果: #{contentBean.books.size()}件</f:facet>
+
+				<p:panel header="#{book.title}" style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage url="/img/#{book.id}.jpg" />
+						<h:outputText value="#{book.year}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandLink update=":form:bookDetail"
+					oncomplete="PF('bookDialog').show()" title="View Detail">
+					<h:outputText styleClass="ui-icon ui-icon-search"
+						style="margin:0 auto;" />
+					<f:setPropertyActionListener value="#{book}"
+						target="#{contentBean.book}" />
+				</p:commandLink>
+			</p:dataGrid>
+
+			<p:dialog header="本の詳細" widgetVar="bookDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="bookDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty contentBean.book}"
+						columnClasses="label,value">
+						<f:facet name="header">
+							<p:graphicImage
+								url="/img/#{contentBean.book.id}.jpg" />
+						</f:facet>
+
+						<h:outputText value="Id:" />
+						<h:outputText value="#{contentBean.book.id}" />
+
+						<h:outputText value="タイトル:" />
+						<h:outputText value="#{contentBean.book.title}" />
+
+						<h:outputText value="在庫数:" />
+						<h:outputText value="#{contentBean.book.stock}" />
+						
+						<h:outputText value="出版日:" />
+						<h:outputText value="#{contentBean.book.year}" />
+
+						<h:outputText value="価格:" />
+						<h:outputText value="$#{contentBean.book.price}" />
+						
+						<h:outputText value="詳細:" />
+						<h:outputText value="#{contentBean.book.description}" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>
