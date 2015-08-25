@@ -20,7 +20,7 @@ public class CartImpl implements Cart{
 	/**
 	 * 本当はDBにしたい
 	 */
-	private List<OrderLine> orders = new ArrayList<OrderLine>();
+	private List<OrderLine> orders = new ArrayList<>();
 
 	@Override
 	public List<OrderLine> getPendingOrders(){
