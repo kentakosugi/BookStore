@@ -102,7 +102,9 @@ public class SerachServlet extends HttpServlet{
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			db.close();
+			if(db != null){
+				db.close();
+			}
 		}
 	}
 
