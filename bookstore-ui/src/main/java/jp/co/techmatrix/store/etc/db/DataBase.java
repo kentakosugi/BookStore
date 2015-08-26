@@ -37,7 +37,6 @@ public class DataBase implements Closeable{
 		
 		// 接続
 		this.con = DriverManager.getConnection(url, user, password);
-		
 	}
 	
 	/**
