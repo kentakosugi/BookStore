@@ -21,7 +21,7 @@ import jp.co.techmatrix.store.services.impl.Book;
 @WebServlet("/SearchServlet")
 public class SerachServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -102,9 +102,7 @@ public class SerachServlet extends HttpServlet{
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			if(db != null){
-				db.close();
-			}
+			db.close();
 		}
 	}
 
